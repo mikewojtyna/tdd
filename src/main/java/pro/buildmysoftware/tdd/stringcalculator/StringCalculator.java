@@ -7,9 +7,11 @@ class StringCalculator {
 		if (numbers.isEmpty()) {
 			return 0;
 		}
-		String numbersWithReplacedNewlineChars = numbers.replace('\n',
-			',');
-		return Stream.of(numbersWithReplacedNewlineChars.split(","))
-			.mapToInt(Integer::valueOf).sum();
+		return Stream.of(normalizeString(numbers).split(",")).mapToInt
+			(Integer::valueOf).sum();
+	}
+
+	private static String normalizeString(String numbers) {
+		return numbers.replace('\n', ',');
 	}
 }
