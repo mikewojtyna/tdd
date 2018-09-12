@@ -12,7 +12,8 @@ class StringCalculatorTest {
 	// @formatter:off
 	@CsvSource({
 		"'', 0",
-		"'1', 1"
+		"'1', 1",
+		"'2', 2"
 	})
 	// @formatter:on
 	void test(String numbers, int expectedSum) throws Exception {
