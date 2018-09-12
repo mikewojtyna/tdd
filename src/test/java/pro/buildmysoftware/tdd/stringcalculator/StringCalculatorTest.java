@@ -9,9 +9,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class StringCalculatorTest {
 	@DisplayName("should calculate sum according to the specification")
 	@ParameterizedTest(name = "given numbers: \"{0}\", expected sum: {1}")
+	// @formatter:off
 	@CsvSource({
-		// empty string
-		"'', 0"})
+		"'', 0",
+		"'1', 1"
+	})
+	// @formatter:on
 	void test(String numbers, int expectedSum) throws Exception {
 		// when
 		int sum = StringCalculator.add(numbers);
