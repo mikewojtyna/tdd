@@ -7,7 +7,9 @@ class StringCalculator {
 		if (numbers.isEmpty()) {
 			return 0;
 		}
-		return Stream.of(numbers.split(",")).mapToInt
-			(Integer::valueOf).sum();
+		String numbersWithReplacedNewlineChars = numbers.replace('\n',
+			',');
+		return Stream.of(numbersWithReplacedNewlineChars.split(","))
+			.mapToInt(Integer::valueOf).sum();
 	}
 }
