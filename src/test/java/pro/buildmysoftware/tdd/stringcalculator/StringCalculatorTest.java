@@ -14,7 +14,8 @@ class StringCalculatorTest {
 		"'', 0",
 		"'1', 1",
 		"'2', 2",
-		"'1,2', 3"
+		"'1,2', 3",
+		"'1,2,3', 6"
 	})
 	// @formatter:on
 	void test(String numbers, int expectedSum) throws Exception {

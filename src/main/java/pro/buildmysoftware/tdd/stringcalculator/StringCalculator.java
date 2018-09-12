@@ -1,5 +1,7 @@
 package pro.buildmysoftware.tdd.stringcalculator;
 
+import java.util.stream.Stream;
+
 class StringCalculator {
 	static int add(String numbers) {
 		if (numbers.isEmpty()) {
@@ -7,8 +9,11 @@ class StringCalculator {
 		}
 		String[] numbersArray = numbers.split(",");
 		if (numbersArray.length > 1) {
-			return Integer.valueOf(numbersArray[0]) + Integer
-				.valueOf(numbersArray[1]);
+			int sum = 0;
+			for (String number : numbersArray) {
+				sum += Integer.valueOf(number);
+			}
+			return sum;
 		}
 		return Integer.valueOf(numbers);
 	}
