@@ -10,3 +10,7 @@ There are two branches:
 * fresh
 
 Fresh is a clean branch. You should start here if you want to practice TDD.
+
+## Katas
+
+See ``katas`` directory for the detailed description of all katas.
