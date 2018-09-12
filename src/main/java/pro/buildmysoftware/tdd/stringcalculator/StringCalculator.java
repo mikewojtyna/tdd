@@ -12,6 +12,12 @@ class StringCalculator {
 	}
 
 	private static String normalizeString(String numbers) {
+		boolean startsWithDelimiter = numbers.startsWith("//;\n");
+		if (startsWithDelimiter) {
+			char delimiter = numbers.charAt(2);
+			String numbersAfterDelimiter = numbers.substring(4);
+			return numbersAfterDelimiter.replace(delimiter, ',');
+		}
 		return numbers.replace('\n', ',');
 	}
 }
