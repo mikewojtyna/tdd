@@ -19,7 +19,7 @@ class StringCalculator {
 	}
 
 	private static String extractNumbers(String numbers) {
-		if (numbers.startsWith("//;\n")) {
+		if (numbers.matches("^//.\n.*$")) {
 			String delimiter = String.valueOf(numbers.charAt(2));
 			String numbersAfterDelimiter = numbers.substring(4);
 			return numbersAfterDelimiter.replace(delimiter,
