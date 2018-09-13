@@ -13,7 +13,8 @@ class StringCalculator {
 		}
 		Collection<Integer> parsedNumbers = parseNumbers(numbers);
 		validateNonNegativeNumbers(parsedNumbers);
-		return parsedNumbers.stream().reduce(0, Integer::sum);
+		return parsedNumbers.stream().filter(n -> n <= 1000).reduce(0,
+			Integer::sum);
 	}
 
 	private static void validateNonNegativeNumbers(Collection<Integer>

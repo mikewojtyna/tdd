@@ -19,7 +19,8 @@ class StringCalculatorTest {
 		"'1,2,3', 6",
 		"'1\n2,3', 6",
 		"'//;\n1;2', 3",
-		"'//%\n1%2', 3"
+		"'//%\n1%2', 3",
+		"'2,1001', 2"
 	})
 	// @formatter:on
 	void test0(String numbers, int expectedSum) throws Exception {
