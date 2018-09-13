@@ -1,7 +1,6 @@
 package pro.buildmysoftware.tdd.stringcalculator;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -31,13 +30,16 @@ class StringCalculatorTest {
 		assertThat(sum).isEqualTo(expectedSum);
 	}
 
-	@DisplayName("should throw exception when single negative number " +
-		"is given")
-	@Test
-	void test1() throws Exception {
-		// given
-		String numbers = "1,4,-1";
-
+	@DisplayName("should throw exception when negative numbers are given")
+	@ParameterizedTest(name = "given numbers: \"{0}\", expected ex msg: "
+		+ "{1}")
+	// @formatter:off
+	@CsvSource({
+		"'1,4,-1', 'negatives not allowed: -1'",
+		"'1,-1,-2', 'negatives not allowed: -1,-2'"
+	})
+	// @formatter:on
+	void test1(String numbers, String expectedExMsg) throws Exception {
 		// when
 		Throwable thrownException = catchThrowable(() ->
 			StringCalculator.add(numbers));
@@ -45,6 +47,6 @@ class StringCalculatorTest {
 		// then
 		assertThat(thrownException).isInstanceOf
 			(IllegalArgumentException.class).hasMessage
-			("negatives" + " not allowed: -1");
+			(expectedExMsg);
 	}
 }

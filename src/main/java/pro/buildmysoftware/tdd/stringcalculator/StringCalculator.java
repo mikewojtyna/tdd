@@ -1,7 +1,6 @@
 package pro.buildmysoftware.tdd.stringcalculator;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,12 +18,13 @@ class StringCalculator {
 
 	private static void validateNonNegativeNumbers(Collection<Integer>
 							       parsedNumbers) {
-		Optional<Integer> negativeNumber = parsedNumbers.stream()
-			.filter(n -> n < 0).findFirst();
-		negativeNumber.ifPresent(number -> {
+		String negativesNumbersString = parsedNumbers.stream().filter
+			(n -> n < 0).map(String::valueOf).collect(Collectors
+			.joining(","));
+		if (!negativesNumbersString.isEmpty()) {
 			throw new IllegalArgumentException("negatives not " +
-				"allowed: " + number);
-		});
+				"allowed: " + negativesNumbersString);
+		}
 	}
 
 	private static Collection<Integer> parseNumbers(String numbers) {
