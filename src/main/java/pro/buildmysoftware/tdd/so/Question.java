@@ -1,17 +1,16 @@
 package pro.buildmysoftware.tdd.so;
 
-import java.awt.geom.Ellipse2D;
 import java.util.HashSet;
 import java.util.Set;
 
 class Question {
 	private int score;
 	private String author;
-	private Set<String> users;
+	private Set<String> voters;
 
 	private Question(String author) {
 		this.author = author;
-		users = new HashSet<>();
+		voters = new HashSet<>();
 	}
 
 	static Question post(String author) {
@@ -29,16 +28,17 @@ class Question {
 	 * @throws QuestionException if business constraint is violated
 	 */
 	void upvote(String user) throws QuestionException {
+		vote(user, () -> score++);
+	}
+
+	private void vote(String user, Runnable voteOperation) {
 		validateUser(user);
-		if (users.contains(user)) {
-			throw new QuestionException();
-		}
-		score++;
-		users.add(user);
+		voteOperation.run();
+		voters.add(user);
 	}
 
 	private void validateUser(String user) {
-		if (author.equals(user)) {
+		if (author.equals(user) || voters.contains(user)) {
 			throw new QuestionException();
 		}
 	}
@@ -49,10 +49,7 @@ class Question {
 	 * @param user another user, cannot be the same as author
 	 * @throws QuestionException if business constraint is violated
 	 */
-	public void downvote(String user) {
-		validateUser(user);
-		if(score < 0)
-			throw new QuestionException();
-		score--;
+	void downvote(String user) {
+		vote(user, () -> score--);
 	}
 }
