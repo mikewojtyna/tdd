@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Fail.fail;
 
 public class QuestionVoteTest {
 	@DisplayName("should increase score by 1 when upvote by another user")
@@ -35,5 +36,21 @@ public class QuestionVoteTest {
 
 		// then
 		assertThat(exception).isInstanceOf(QuestionException.class);
+	}
+
+	@DisplayName("should decrease score by 1 when downvote by another " +
+		"user")
+	@Test
+	void test2() throws Exception {
+		// given
+		String author = "goobar";
+		String anotherUser = "foobar";
+		Question question = Question.post(author);
+
+		// when
+		question.downvote(anotherUser);
+
+		// then
+		assertThat(question.getScore()).isEqualTo(-1);
 	}
 }

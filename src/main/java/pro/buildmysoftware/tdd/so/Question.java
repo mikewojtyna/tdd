@@ -28,4 +28,8 @@ class Question {
 		}
 		score++;
 	}
+
+	public void downvote(String anotherUser) {
+		score--;
+	}
 }
