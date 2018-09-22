@@ -13,6 +13,12 @@ class Question {
 		voters = new HashMap<>();
 	}
 
+	/**
+	 * Posts a new question by the given author.
+	 *
+	 * @param author author of the question
+	 * @return the new question posted by the given author
+	 */
 	static Question post(String author) {
 		return new Question(author);
 	}
