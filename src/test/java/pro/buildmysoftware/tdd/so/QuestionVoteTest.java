@@ -89,7 +89,7 @@ public class QuestionVoteTest {
 	}
 
 	@DisplayName("should allow to upvote the same question two times" + " " +
-		"" + "by different users")
+		"" + "" + "by different users")
 	@Test
 	void test5() throws Exception {
 		// given
@@ -102,5 +102,24 @@ public class QuestionVoteTest {
 
 		// then
 		assertThat(question.getScore()).isEqualTo(2);
+	}
+
+	@DisplayName("should throw exception when user downvotes the same " +
+		"question twice")
+	@Test
+	void test6() throws Exception {
+		// given
+		String author = "goobar";
+		String user = "foobar";
+		Question question = Question.post(author);
+
+		// when
+		question.downvote(user);
+		Throwable exception = catchThrowable(() -> question.downvote
+			(user));
+
+		// then
+		assertThat(exception).isInstanceOf(QuestionException.class);
+		assertThat(question.getScore()).isEqualTo(-1);
 	}
 }

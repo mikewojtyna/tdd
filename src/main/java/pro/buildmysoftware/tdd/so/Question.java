@@ -51,6 +51,8 @@ class Question {
 	 */
 	public void downvote(String user) {
 		validateUser(user);
+		if(score < 0)
+			throw new QuestionException();
 		score--;
 	}
 }
