@@ -24,6 +24,9 @@ class Question {
 	 */
 	void upvote(String user) throws QuestionException {
 		validateUser(user);
+		if (score > 0) {
+			throw new QuestionException();
+		}
 		score++;
 	}
 

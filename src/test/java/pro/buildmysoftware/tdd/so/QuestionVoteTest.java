@@ -68,4 +68,23 @@ public class QuestionVoteTest {
 		// then
 		assertThat(exception).isInstanceOf(QuestionException.class);
 	}
+
+	@DisplayName("should throw exception when user upvotes the same " +
+		"question twice")
+	@Test
+	void test4() throws Exception {
+		// given
+		String author = "goobar";
+		String user = "foobar";
+		Question question = Question.post(author);
+
+		// when
+		question.upvote(user);
+		Throwable exception = catchThrowable(() -> question.upvote
+			(user));
+
+		// then
+		assertThat(exception).isInstanceOf(QuestionException.class);
+		assertThat(question.getScore()).isEqualTo(1);
+	}
 }
