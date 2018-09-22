@@ -34,7 +34,8 @@ class Question {
 	private void vote(String user, int voteValue) {
 		validateVote(user, voteValue);
 		score += voteValue;
-		voters.put(user, voteValue);
+		voters.merge(user, voteValue, (oldValue, value) -> oldValue +
+			value);
 	}
 
 	private void validateVote(String user, Integer voteValue) {

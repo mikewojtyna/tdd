@@ -89,7 +89,8 @@ public class QuestionVoteTest {
 	}
 
 	@DisplayName("should allow to upvote the same question two times" + " " +
-		"" + "" + "" + "" + "" + "" + "" + "by different users")
+		"" + "" + "" + "" + "" + "" + "" + "" + "" + "by different " +
+		"users")
 	@Test
 	void test5() throws Exception {
 		// given
@@ -153,5 +154,22 @@ public class QuestionVoteTest {
 
 		// then
 		assertThat(question.getScore()).isEqualTo(0);
+	}
+
+	@DisplayName("should allow a user to change her vote from upvote to "
+		+ "downvote")
+	@Test
+	void test9() throws Exception {
+		// given
+		Question question = Question.post("goobar");
+		String user = "foobar";
+		question.upvote(user);
+
+		// when
+		question.downvote(user);
+		question.downvote(user);
+
+		// then
+		assertThat(question.getScore()).isEqualTo(-1);
 	}
 }
