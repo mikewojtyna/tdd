@@ -53,4 +53,19 @@ public class QuestionVoteTest {
 		// then
 		assertThat(question.getScore()).isEqualTo(-1);
 	}
+
+	@DisplayName("should throw exception when downvote by author")
+	@Test
+	void test3() throws Exception {
+		// given
+		String author = "goobar";
+		Question question = Question.post(author);
+
+		// when
+		Throwable exception = catchThrowable(() -> question.downvote
+			(author));
+
+		// then
+		assertThat(exception).isInstanceOf(QuestionException.class);
+	}
 }
