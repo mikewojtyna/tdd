@@ -1,16 +1,16 @@
 package pro.buildmysoftware.tdd.so;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 class Question {
 	private int score;
 	private String author;
-	private Set<String> voters;
+	private Map<String, Integer> voters;
 
 	private Question(String author) {
 		this.author = author;
-		voters = new HashSet<>();
+		voters = new HashMap<>();
 	}
 
 	static Question post(String author) {
@@ -28,17 +28,20 @@ class Question {
 	 * @throws QuestionException if business constraint is violated
 	 */
 	void upvote(String user) throws QuestionException {
-		vote(user, () -> score++);
+		vote(user, 1);
 	}
 
-	private void vote(String user, Runnable voteOperation) {
-		validateUser(user);
-		voteOperation.run();
-		voters.add(user);
+	private void vote(String user, int voteValue) {
+		validateVote(user, voteValue);
+		score += voteValue;
+		voters.put(user, voteValue);
 	}
 
-	private void validateUser(String user) {
-		if (author.equals(user) || voters.contains(user)) {
+	private void validateVote(String user, Integer voteValue) {
+		boolean isAuthor = author.equals(user);
+		boolean isTheSameVoteAlreadyGiven = voters.getOrDefault(user,
+			0).equals(voteValue);
+		if (isAuthor || isTheSameVoteAlreadyGiven) {
 			throw new QuestionException();
 		}
 	}
@@ -50,6 +53,6 @@ class Question {
 	 * @throws QuestionException if business constraint is violated
 	 */
 	void downvote(String user) {
-		vote(user, () -> score--);
+		vote(user, -1);
 	}
 }
