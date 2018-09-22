@@ -1,11 +1,17 @@
 package pro.buildmysoftware.tdd.so;
 
+import java.awt.geom.Ellipse2D;
+import java.util.HashSet;
+import java.util.Set;
+
 class Question {
 	private int score;
 	private String author;
+	private Set<String> users;
 
 	private Question(String author) {
 		this.author = author;
+		users = new HashSet<>();
 	}
 
 	static Question post(String author) {
@@ -24,10 +30,11 @@ class Question {
 	 */
 	void upvote(String user) throws QuestionException {
 		validateUser(user);
-		if (score > 0) {
+		if (users.contains(user)) {
 			throw new QuestionException();
 		}
 		score++;
+		users.add(user);
 	}
 
 	private void validateUser(String user) {

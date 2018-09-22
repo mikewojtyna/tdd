@@ -87,4 +87,20 @@ public class QuestionVoteTest {
 		assertThat(exception).isInstanceOf(QuestionException.class);
 		assertThat(question.getScore()).isEqualTo(1);
 	}
+
+	@DisplayName("should allow to upvote the same question two times" + " " +
+		"" + "by different users")
+	@Test
+	void test5() throws Exception {
+		// given
+		String author = "goobar";
+		Question question = Question.post(author);
+
+		// when
+		question.upvote("foobar");
+		question.upvote("hoobar");
+
+		// then
+		assertThat(question.getScore()).isEqualTo(2);
+	}
 }
