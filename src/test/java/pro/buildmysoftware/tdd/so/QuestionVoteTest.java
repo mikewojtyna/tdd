@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.assertj.core.api.Fail.fail;
 
 public class QuestionVoteTest {
 	@DisplayName("should increase score by 1 when upvote by another user")
@@ -88,9 +87,8 @@ public class QuestionVoteTest {
 		assertThat(question.getScore()).isEqualTo(1);
 	}
 
-	@DisplayName("should allow to upvote the same question two times" + " " +
-		"" + "" + "" + "" + "" + "" + "" + "" + "" + "by different " +
-		"users")
+	@DisplayName("should allow to upvote the same question two times by "
+		+ "different users")
 	@Test
 	void test5() throws Exception {
 		// given
